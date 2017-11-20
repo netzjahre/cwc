@@ -3,16 +3,15 @@ Use the original file "config.inc.php" of luciomarinelli/cwc !!!
 Put it into the directory of the other files (*)
 
 The uploaded files
-cwc.php
-delete_check.php
-delete_ip.php
-delete_timestamp.php
-delete_useragent.php
-sort_by_ip.php
-table_structure.sql
-tracker.inc.php
+	cwc.php
+	delete_check.php
+	delete_ip.php
+	delete_timestamp.php
+	delete_useragent.php
+	sort_by_ip.php
+	table_structure.sql
+	tracker.inc.php
 replace the original files in luciomarinelli/cwc
-The files will be uploaded soon.
 
 Installation instructions
 
