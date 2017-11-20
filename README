@@ -1,0 +1,32 @@
+
+Use the original file "config.inc.php" of luciomarinelli/cwc !!!
+Put it into the directory of the other files (*)
+
+The uploaded files
+cwc.php
+delete_check.php
+delete_ip.php
+delete_timestamp.php
+delete_useragent.php
+sort_by_ip.php
+table_structure.sql
+tracker.inc.php
+replace the original files in luciomarinelli/cwc
+The files will be uploaded soon.
+
+Installation instructions
+
+1) create a table in the MySQL database importing the table_structure.sql file
+2) for each monitored site add configuration parameters (db name, user, password) to config.inc.php and to a copy of tracker.inc.php
+3) add the configured tracker.inc.php at the end of each page of the monitored site
+4) upload the config.inc.php (*) and cwc.php on one of the monitored web sites and load cwc.php
+
+
+
+
+cwc changed as decribed:
+Dump rows are coloured alternating 
+The dump table is of flexible witdh.
+Sorting by Remote Address (IP) is possible
+Select a criteria to delete dump rows
+
