@@ -20,12 +20,3 @@ Installation instructions
 3) add the configured tracker.inc.php at the end of each page of the monitored site
 4) upload the config.inc.php (*) and cwc.php on one of the monitored web sites and load cwc.php
 
-
-
-
-cwc changed as decribed:
-Dump rows are coloured alternating 
-The dump table is of flexible witdh.
-Sorting by Remote Address (IP) is possible
-Select a criteria to delete dump rows
-
