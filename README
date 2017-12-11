@@ -27,3 +27,8 @@ The dump table is of flexible witdh.
 Sorting by Remote Address (IP) is possible
 Select a criteria to delete dump rows
 
+Modifications of 2017-Dez-11:
+cwc.php count - table rows with same date
+sort_by_ip.php - count table rows with same ip
+sort_by_uri.php - count table rows with same url
+
