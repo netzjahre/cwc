@@ -2,7 +2,7 @@
 Use the original file "config.inc.php" of luciomarinelli/cwc !!!
 Put it into the directory of the other files (*)
 
-The uploaded files
+Some of the uploaded files:
 	cwc.php
 	delete_check.php
 	delete_ip.php
@@ -11,7 +11,7 @@ The uploaded files
 	sort_by_ip.php
 	table_structure.sql
 	tracker.inc.php
-replace the original files in luciomarinelli/cwc
+replace the original files in luciomarinelli/cwc .
 
 Installation instructions
 
