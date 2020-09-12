@@ -245,7 +245,7 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 	echo " and <input type='submit' name='agentrubber' value='delete rows'></p>";
 	echo "</form>";
 	echo "<form action = 'delete_url.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='url' value='URL, part after domain/' maxlength='18' size='18'>";
+	echo "<p align='center'>Insert a part of   <input type='text' name='url' value='URL, part next domain/' maxlength='18' size='18'>";
 	echo " and <input type='submit' name='urlrubber' value='delete rows'></p>";
 	echo "</form>";
 	echo "<form action = 'delete_me.php' method = 'POST'>";
