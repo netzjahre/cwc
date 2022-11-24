@@ -1,0 +1,23 @@
+
+Use the original file "config.inc.php" of luciomarinelli/cwc !!!
+Put it into the directory of the other files (*)
+
+Some of the uploaded files:
+	cwc.php
+	delete_check.php
+	delete_ip.php
+	delete_timestamp.php
+	delete_useragent.php
+	sort_by_ip.php
+	table_structure.sql
+	tracker.inc.php
+replace the original files in luciomarinelli/cwc .
+
+Installation instructions
+
+1) create a table in the MySQL database importing the table_structure.sql file
+2) for each monitored site add configuration parameters (db name, user, password) to config.inc.php and to a copy of tracker.inc.php
+3) add the configured tracker.inc.php at the end of each page of the monitored site
+4) upload the config.inc.php (*) and cwc.php on one of the monitored web sites and load cwc.php
+
+Anonymize the IPs to meet your requirements.

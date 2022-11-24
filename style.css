@@ -1,0 +1,116 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.flex-container > div {
+  margin: 10px;
+  text-align: center;
+}
+
+
+
+div.redTable {
+  border: 2px solid #BDCBD0;
+  #background-color: #EEE7DB;
+  background-color: #FFFFFF;
+  position: relative;
+  #width: 98%;
+  align-items: center;
+  text-align: left;
+  border-collapse: collapse;
+}
+.divTable.redTable .divTableCell, .divTable.redTable .divTableHead {
+  border: 4px solid #BDCBD0;
+  padding: 4px;
+}
+.divTable.redTable .divTableBody .divTableCell {
+  font-size: 13px;
+}
+.divTable.redTable .divTableRow:nth-child(even) {
+  #background: #F5C8BF;
+  background: #f5f5f5;
+}
+.divTable.redTable .divTableRow:nth-child(odd) {
+  background: #779BAB;
+  #background: #f5f5f5;
+}
+.divTable.redTable .divTableHeading {
+  background: #000000;
+}
+.divTable.redTable .divTableHeading .divTableHead {
+  font-size: 19px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: left;
+  border-left: 1px solid #BDCBD0;
+}
+.divTable.redTable .divTableHeading .divTableHead:first-child {
+  border-left: none;
+}
+
+.redTable .tableFootStyle {
+  font-size: 13px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #A40808;
+}
+.redTable .tableFootStyle {
+  font-size: 13px;
+}
+.redTable .tableFootStyle .links {
+	 text-align: right;
+}
+.redTable .tableFootStyle .links a{
+  display: inline-block;
+  background: #FFFFFF;
+  color: #A40808;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.redTable.outerTableFooter {
+  border-top: none;
+}
+.redTable.outerTableFooter .tableFootStyle {
+  padding: 3px 5px; 
+}
+/* DivTable.com */
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+
+#navigation {
+  background-color: #F2F5A9;
+  position: relative;
+  display:flex;
+  width: 100%;
+  border: 3px solid #BDCBD0;  
+}
+.navTableCell {
+  background-color: #F2F5A9;
+  font-size: 19px;
+  width: 33.33%;
+  text-align: center;
+}
+#wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/*max-height: 100%;
+	overflow: scroll;*/
+}
+
+/*a.wrapper:visited {color: #40E0D0;}
+a.wrapper:active {color: #0000FF;}
+a.wrapper:focus {color: #bbb;}
+a.wrapper:hover {color: #aaa;}
+*/
+.bodycss {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/*background-color: #BDCBD0;*/
+}
