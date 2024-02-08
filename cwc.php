@@ -240,21 +240,22 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 	echo "<p align='center'>Insert a part of   <input type='text' name='ip' value='IP' maxlength='15' size='15'>";
 	echo " and <input type='submit' name='iprubber' value='delete rows'></p>";
 	echo "</form>";
+	echo "<form action = 'delete_url.php' method = 'POST'>";
+	echo "<p align='center'>Insert a part of   <input type='text' name='url' value='URL, part after domain/' maxlength='18' size='18'>";
+	echo " and <input type='submit' name='urlrubber' value='delete rows'></p>";
+	echo "</form>";
 	echo "<form action = 'delete_useragent.php' method = 'POST'>";
 	echo "<p align='center'>Insert a part of   <input type='text' name='useragent' value='User Agent' maxlength='15' size='15'>";
 	echo " and <input type='submit' name='agentrubber' value='delete rows'></p>";
-	echo "</form>";
-	echo "<form action = 'delete_url.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='url' value='URL, part next domain/' maxlength='18' size='18'>";
-	echo " and <input type='submit' name='urlrubber' value='delete rows'></p>";
 	echo "</form>";
 	echo "<form action = 'delete_me.php' method = 'POST'>";
 	echo "<p align='center'><input type='submit' name='selfrubber' value='Delete own visits'></p>";
 	echo "</form>";
 
-	echo "<form action = 'delete_all_bots.php' method = 'POST'>";
-	echo "<p align='center'><input type='hidden' name='useragent' value='.com'>";
-	echo "<input type='submit' name='botrubber' value='Delete most bots'></p>";
+	//echo "<form action = 'delete_all_bots.php' method = 'POST'>";
+	echo "<form action = 'delete_searchrobots.php' method = 'POST'>";
+	//echo "<p align='center'><input type='hidden' name='useragent' value='.com'>";
+	echo "<p align='center'><input type='submit' name='botrubber' value='Delete most bots'></p>";
 	echo "</form>";
 	echo '</div>';//Ende wrapper
 }else{
