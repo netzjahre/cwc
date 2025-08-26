@@ -2,16 +2,17 @@
 //Cookieless Web Counter - tracker code starts here
 //Include this tracked in each page you want to count.
 
+
 //CONFIGURATION
 
 //MySQL database host
-$dbhost="sql.yourhost.com";
+$dbhost="sql424.your-server.de";
 //Database name
-$dbname="dbname_here";
+$dbname="netzjap_db0";
 //Database user name
-$dbuser="dbuser_here";
+$dbuser="netzjap_0";
 //Database password
-$dbpass="password_here";
+$dbpass="VAA2euCJruBKQDV8";
 //Table name (default is "contatore")
 $tablename="contatore";
 
@@ -24,11 +25,14 @@ $request_uri=$_SERVER['REQUEST_URI'];
 $http_referer=$_SERVER['HTTP_REFERER'];
 $http_user_agent=$_SERVER['HTTP_USER_AGENT'];
 
-$conn = mysql_connect($dbhost,$dbuser,$dbpass);
-mysql_select_db($dbname,$conn);
+
+$mysqli = new mysqli($dbhost,$dbuser,$dbpass,$dbname);
+if ($mysqli->connect_errno) {
+    die("Verbindung fehlgeschlagen: " . $mysqli->connect_error);
+	}
 $query = ("INSERT INTO $tablename (php_self,remote_addr,http_host,request_uri,http_referer,http_user_agent)
-						VALUES ('$php_self','$remote_addr','$http_host','$request_uri','$http_referer','$http_user_agent')");
-$result = mysql_query ($query);
+			VALUES ('$php_self','$remote_addr','$http_host','$request_uri','$http_referer','$http_user_agent')");
+$mysqli->query($query);
 //Cookieless Web Counter - tracker code ends here
 ?>
 

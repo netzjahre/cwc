@@ -17,12 +17,12 @@ function is_bot($text) {
 }
 
 //get site id for <TITLE> & dump page, preventing injection
-if ($_GET[action]=="dump" && is_numeric($_GET[id]))
+if (($_GET['action'] ?? '') == "dump" && is_numeric($_GET['id'] ?? ''))
 	{
-	$siteid=$_GET[id];
-	$siteid=htmlentities($siteid,ENT_QUOTES);
+	$siteid = $_GET['id'];
+	$siteid = htmlentities($siteid,ENT_QUOTES);
 	}else{
-	$siteid=0;
+	$siteid = 0;
 	}
 ?>
 
@@ -30,7 +30,6 @@ if ($_GET[action]=="dump" && is_numeric($_GET[id]))
 <head>
 <title>Cookieless Web Counter - <?=$sitename[$siteid] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-<meta name="robots" content="noindex"/>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 
@@ -41,9 +40,9 @@ Modified by JF
 <?php
 
 //Detect language from HTTP_ACCEPT_LANGUAGE string
-$language=($_SERVER[HTTP_ACCEPT_LANGUAGE]);
+$language = ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
 $language = htmlentities($language,ENT_QUOTES);
-$lang=substr($language,0,2);
+$lang = substr($language,0,2);
 
 switch ($lang) {
 case 'it': //ITALIAN LANGUAGE
@@ -59,10 +58,10 @@ case 'it': //ITALIAN LANGUAGE
 	$back="Ritorna alla pagina principale";
 	$timestamp_label="Data & ora";
 	$php_self_label="Pagina visitata";
-	$remote_host_label="translate it";
+	$remote_host_label="Italy";
 	$remote_addr_label="Indirizzo IP";
-	$http_host_label="translate it";
-	$request_uri_label="translate it";
+	$http_host_label="Italy";
+	$request_uri_label="Italy";
 	$http_referer_label="Pagina di provenienza";
 	$http_user_agent_label="Browser del visitatore";
 
@@ -101,16 +100,12 @@ default: //DEFAULT ENGLISH LANGUAGE
 	break;
 }
 
-//optimize
-	$mysqli = new mysqli($dbhost[$siteid],$dbuser[$siteid],$dbpass[$siteid],$dbname[$siteid]) or die ("$mysqli_connnect_error()");
-	$mysqli -> query("OPTIMIZE TABLE $tablename[$siteid]");
-	$mysqli->close();
 
 //count the number of sites
 $number_of_sites=count($sitename)+1;
 
 //dump last visits
-if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
+if (($_GET['action'] ?? '') == "dump" && ($_GET['id'] ?? 0) < $number_of_sites) {
 	$mysqli = new mysqli($dbhost[$siteid],$dbuser[$siteid],$dbpass[$siteid],$dbname[$siteid]) or die ("$mysqli_connnect_error()");
 	
 	#$query = "DELETE FROM $tablename[$siteid] WHERE http_user_agent LIKE '%bing%'"; 
@@ -129,15 +124,15 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 	echo "<form action = 'delete_check.php' method = 'POST'>";
 	
 	//get number of visits preventing injection
-	if (is_numeric($_GET[n])) $n_vis=$_GET[n]+1;
+	if (is_numeric($_GET['n'] ?? '')) $n_vis = ($_GET['n'] ?? 0) + 1;
 	else die ("$attack");
 	
 	echo "<h2>$sitename[$siteid]</h2>";
-	echo "<h3>$last_visits ($_GET[n])</h3><table border='0px' style='font-size: 12px' width='100%'>";
-	#echo "<h3>$last_visits ($_GET[n])</h3><table border='0px' style='font-size: 12px'>";
+	echo "<h3>$last_visits (" . ($_GET['n'] ?? 0) . ")</h3><table border='0px' style='font-size: 12px' width='100%'>";
+	#echo "<h3>$last_visits (" . ($_GET['n'] ?? 0) . ")</h3><table border='0px' style='font-size: 12px'>";
 	
 	echo "<div class='flex-container'>";
-	echo "<div><a href='$_SERVER[PHP_SELF]'>$back</a></div>";
+	echo "<div><a href='" . ($_SERVER['PHP_SELF'] ?? '') . "'>$back</a></div>";
 	echo "<div><a href='sort_by_ip.php'>Sort list by IP</a></div>";
 	echo "<div><a href='sort_by_uri.php'>Sort list by URL</a></div>";
 	echo "</div>";
@@ -146,6 +141,7 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 	echo "<tr style='background-color:#a2a5a7;text-align: left;'>
 		<th>Id</th>
 		<th>SORT BY<br />$timestamp_label</th>
+		<th>$php_self_label</th>
 		<th>$remote_host_label</th>
 		<th>$remote_addr_label</th>
 		<th style='width:20%'>$request_uri_label</th>
@@ -164,21 +160,11 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 		$i=1;
 		$countt=0;
 		$iminus=0;
+		$b = null; // Initialize $b to avoid undefined variable warning
 		while($stmt->fetch())
 		{
 			if ($i == $n_vis){break;}
 			$a = intval(substr($timestamp,8,2));
-			
-			$remote_addr = htmlentities($remote_addr,ENT_QUOTES);
-			$remote_host = gethostbyaddr($remote_addr);		
-			$id = htmlentities($id,ENT_QUOTES);
-			$timestamp = htmlentities($timestamp,ENT_QUOTES);
-			$php_self = htmlentities($php_self,ENT_QUOTES);
-			$http_host = htmlentities($http_host,ENT_QUOTES);
-			$request_uri = htmlentities($request_uri,ENT_QUOTES);
-			$http_referer = htmlentities($http_referer,ENT_QUOTES);
-			$http_user_agent = htmlentities($http_user_agent,ENT_QUOTES);
-			
 			if ( $a <> $b && $i>1)
 			{
 				$iminus=$i-1;
@@ -188,10 +174,21 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 			if (((($i)%2)==0) && is_bot($http_user_agent)) {$stile="style= 'background-color: #cecece;color: white'";} //Change background and text
 			if (((($i)%2)>0)) {$stile="style= 'background-color: #779BAB;'";} //Change background
 			if (((($i)%2)>0) && is_bot($http_user_agent)) {$stile="style= 'background-color: #779BAB; color: white'";} //Change background and text
-#htmlentities weiter oben		
+			$remote_addr = htmlentities($remote_addr,ENT_QUOTES);
+			$remote_host = gethostbyaddr($remote_addr);
+			
+			$id = htmlentities($id,ENT_QUOTES);
+			$timestamp = htmlentities($timestamp,ENT_QUOTES);
+			$php_self = htmlentities($php_self,ENT_QUOTES);
+			$http_host = htmlentities($http_host,ENT_QUOTES);
+			$request_uri = htmlentities($request_uri,ENT_QUOTES);
+			$http_referer = htmlentities($http_referer,ENT_QUOTES);
+			$http_user_agent = htmlentities($http_user_agent,ENT_QUOTES);			
+
 			echo "<tr $stile>";
 			echo "<td>$id</td>
 			<td>$timestamp</td>
+			<td>$php_self</td>
 			<td style='word-break: break-all; word-wrap: break-word;'>$remote_host</td>";
 			//$muster = "/^(\w{4}:{1}){7}(^\w{4})$/";
 			if(strlen($remote_addr)>15) {
@@ -224,39 +221,40 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 	echo "</table>";
 	
 	echo "<div class='flex-container'>";
-	echo "<div><a href='$_SERVER[PHP_SELF]'>$back</a></div>";
+	echo "<div><a href='" . ($_SERVER['PHP_SELF'] ?? '') . "'>$back</a></div>";
 	echo "<div><a href='sort_by_ip.php'>Sort list by IP</a></div>";
 	echo "<div><a href='sort_by_uri.php'>Sort list by URL</a></div>";
 	echo "</div>";
 	
-	echo "<p align='center'><input type='submit' name='rubber' value='Delete checked rows'/></p>";
+	echo "<p align='right'><input type='submit' name='rubber' value='Delete checked rows'/></p>";
 	echo "</form>";
-	echo "<p align='center'>Inserted or pasted text must be left-aligned.</p>";	
 	echo "<form action = 'delete_timestamp.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='timestamp' value='Timestamp' maxlength='18' size='18'>";
+	echo "<p align='right'>or insert a part of   <input type='text' name='timestamp' value='timestamp' maxlength='18' size='18'>";
 	echo " and <input type='submit' name='timerubber' value='delete rows'></p>";
 	echo "</form>";
 	echo "<form action = 'delete_ip.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='ip' value='IP' maxlength='15' size='15'>";
+	echo "<p align='right'>or insert a part of   <input type='text' name='ip' value='remote_address' maxlength='15' size='15'>";
 	echo " and <input type='submit' name='iprubber' value='delete rows'></p>";
 	echo "</form>";
-	echo "<form action = 'delete_url.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='url' value='URL, part after domain/' maxlength='18' size='18'>";
-	echo " and <input type='submit' name='urlrubber' value='delete rows'></p>";
-	echo "</form>";
 	echo "<form action = 'delete_useragent.php' method = 'POST'>";
-	echo "<p align='center'>Insert a part of   <input type='text' name='useragent' value='User Agent' maxlength='15' size='15'>";
+	echo "<p align='right'>or insert a part of   <input type='text' name='useragent' value='http_user_agent' maxlength='15' size='15'>";
 	echo " and <input type='submit' name='agentrubber' value='delete rows'></p>";
 	echo "</form>";
+	echo "<form action = 'delete_url.php' method = 'POST'>";
+	echo "<p align='right'>or insert a part of   <input type='text' name='url' value='request_uri' maxlength='15' size='15'>";
+	echo " and <input type='submit' name='urlrubber' value='delete rows'></p>";
+	echo "</form>";
+	echo "<p align='right'>Inserted or pasted text must be left-aligned.</p>";	
+	
 	echo "<form action = 'delete_me.php' method = 'POST'>";
-	echo "<p align='center'><input type='submit' name='selfrubber' value='Delete own visits'></p>";
+	echo "<p align='right'><input type='submit' name='selfrubber' value='delete own visits'></p>";
 	echo "</form>";
 
-	//echo "<form action = 'delete_all_bots.php' method = 'POST'>";
-	echo "<form action = 'delete_searchrobots.php' method = 'POST'>";
-	//echo "<p align='center'><input type='hidden' name='useragent' value='.com'>";
-	echo "<p align='center'><input type='submit' name='botrubber' value='Delete most bots'></p>";
+	echo "<form action = 'delete_all_bots.php' method = 'POST'>";
+	echo "<p align='right'><input type='hidden' name='useragent' value='.com'>";
+	echo " and <input type='submit' name='botrubber' value='delete all bots'></p>";
 	echo "</form>";
+	echo "<p style='text-align: left;'><a href='optimize.php'>Optimize database</a></p>";
 	echo '</div>';//Ende wrapper
 }else{
 //show the main page
@@ -282,7 +280,7 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 		}
 
 		//count today's visitors
-		if ($stmt = $mysqli->prepare("SELECT remote_addr FROM $tablename[$siteid] WHERE DATE(timestamp)=CURDATE()GROUP BY remote_addr"))
+		if ($stmt = $mysqli->prepare("SELECT remote_addr FROM $tablename[$siteid] WHERE DATE(timestamp)=CURDATE() GROUP BY remote_addr"))
 		{
 			$stmt->execute();
 			$stmt->store_result();
@@ -319,16 +317,15 @@ if ($_GET[action]=="dump" && $_GET[id]<$number_of_sites) {
 			<td>$visitatori_odierni</td>
 			<td>$visite_ieri</td>
 			<td>$visitatori_ieri</td>
-			<td><a href='$_SERVER[PHP_SELF]?id=$siteid&amp;action=dump&amp;n=50'>50</a>&nbsp;&nbsp;
-				<a href='$_SERVER[PHP_SELF]?id=$siteid&amp;action=dump&amp;n=100'>100</a>&nbsp;&nbsp;
-				<a href='$_SERVER[PHP_SELF]?id=$siteid&amp;action=dump&amp;n=200'>200</a>&nbsp;&nbsp;
-				<a href='$_SERVER[PHP_SELF]?id=$siteid&amp;action=dump&amp;n=1000'>1000</a></td></tr>";				
+			<td><a href='" . ($_SERVER['PHP_SELF'] ?? '') . "?id=$siteid&amp;action=dump&amp;n=50'>50</a>&nbsp;&nbsp;
+				<a href='" . ($_SERVER['PHP_SELF'] ?? '') . "?id=$siteid&amp;action=dump&amp;n=100'>100</a>&nbsp;&nbsp;
+				<a href='" . ($_SERVER['PHP_SELF'] ?? '') . "?id=$siteid&amp;action=dump&amp;n=200'>200</a>&nbsp;&nbsp;
+				<a href='" . ($_SERVER['PHP_SELF'] ?? '') . "?id=$siteid&amp;action=dump&amp;n=1000'>alle</a></td></tr>";		
 	}
 	echo "</table>";
 }
 ?>
-<br/>
+
 <div style="font-size: 15px; padding: 5px; text-align: center">v. 20150324 (L.Marinelli), modified by JF</div>
 </body>
 </html>
-
